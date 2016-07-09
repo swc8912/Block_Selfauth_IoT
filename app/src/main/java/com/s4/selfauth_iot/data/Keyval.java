@@ -4,12 +4,13 @@ package com.s4.selfauth_iot.data;
  * Created by 우철 on 2016-07-09.
  */
 public class Keyval{
-    public String key;
-    public String value;
+    private String key;
+    private String primeNum;
+    private String date;
 
-    public Keyval(String key, String value){
+    public Keyval(String key, String primeNum){
         this.key = key;
-        this.value = value;
+        this.primeNum = primeNum;
     }
 
     public String getKey() {
@@ -20,11 +21,19 @@ public class Keyval{
         this.key = key;
     }
 
-    public String getValue() {
-        return value;
+    public String getPrimeNum() {
+        return primeNum;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setPrimeNum(String primeNum) {
+        this.primeNum = primeNum;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

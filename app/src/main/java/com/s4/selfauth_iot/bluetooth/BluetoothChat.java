@@ -316,7 +316,7 @@ public class BluetoothChat extends Activity {
                     else if(p.getCmd() == MESSAGE_DATA_SAVE){
                         SharedPreferences.Editor editor = pref.edit();
                         for(int i=0; i<p.getAuthinfo().size(); i++){
-                            editor.putString(p.getAuthinfo().get(i).getKey(), p.getAuthinfo().get(i).getValue());
+                            editor.putString(p.getAuthinfo().get(i).getKey(), p.getAuthinfo().get(i).getPrimeNum());
                         }
                         editor.commit();
                         Packet pa = new Packet();

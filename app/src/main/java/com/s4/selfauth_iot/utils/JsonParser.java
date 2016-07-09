@@ -18,7 +18,7 @@ public class JsonParser {
         String value = "{'authinfo': [ {'key':'key1','value':'val1'} ]}";
         Packet p = jspGson.fromJson(value, Packet.class);
         for(int i=0; i<p.getAuthinfo().size(); i++)
-            Log.d("1", p.getAuthinfo().get(i).getKey() + " " + p.getAuthinfo().get(i).getValue());
+            Log.d("1", p.getAuthinfo().get(i).getKey() + " " + p.getAuthinfo().get(i).getPrimeNum());
 
         //gson.toJson(person));
     }
