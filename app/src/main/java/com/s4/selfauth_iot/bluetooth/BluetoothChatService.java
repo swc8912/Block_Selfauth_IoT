@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.s4.selfauth_iot;
+package com.s4.selfauth_iot.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

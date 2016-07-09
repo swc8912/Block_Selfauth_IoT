@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.s4.selfauth_iot;
+package com.s4.selfauth_iot.bluetooth;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -34,6 +34,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.s4.selfauth_iot.R;
 
 import java.util.Set;
 
