@@ -320,7 +320,7 @@ public class BluetoothChat extends Activity {
                         }
                         editor.commit();
                         Packet pa = new Packet();
-                        pa.setCmd(MESSAGE_DATA_LOAD_ACK);
+                        pa.setCmd(MESSAGE_DATA_SAVE_ACK);
                         sendMsg(gson.toJson(pa));
                     }
                     else if(p.getCmd() == MESSAGE_DATA_SAVE_ACK){
