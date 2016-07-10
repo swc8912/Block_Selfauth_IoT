@@ -302,33 +302,39 @@ public class BluetoothChat extends Activity {
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     // json 파싱
                     Gson gson = JsonParser.getInstance().getJspGson();
-                    Packet p = gson.fromJson(readMessage, Packet.class);
-                    SharedPreferences pref = getSharedPreferences("selfauth", MODE_PRIVATE);
-                    if(p.getCmd() == MESSAGE_DATA_LOAD){
-                        Packet pa = new Packet();
-                        pa.setCmd(MESSAGE_DATA_LOAD_ACK);
-                        for(int i=0; i<p.getAuthinfo().size(); i++){
-                            String val = pref.getString(p.getAuthinfo().get(i).getKey(), "");
-                            pa.getAuthinfo().add(new Keyval(p.getAuthinfo().get(i).getKey(), val));
+                    try{
+                        Packet p = gson.fromJson(readMessage, Packet.class);
+                        SharedPreferences pref = getSharedPreferences("selfauth", MODE_PRIVATE);
+                        if(p.getCmd() == MESSAGE_DATA_LOAD){
+                            Packet pa = new Packet();
+                            pa.setCmd(MESSAGE_DATA_LOAD_ACK);
+                            for(int i=0; i<p.getAuthinfo().size(); i++){
+                                String val = pref.getString(p.getAuthinfo().get(i).getKey(), "");
+                                pa.getAuthinfo().add(new Keyval(p.getAuthinfo().get(i).getKey(), val));
+                            }
+                            sendMsg(gson.toJson(pa));
                         }
-                        sendMsg(gson.toJson(pa));
-                    }
-                    else if(p.getCmd() == MESSAGE_DATA_SAVE){
-                        SharedPreferences.Editor editor = pref.edit();
-                        for(int i=0; i<p.getAuthinfo().size(); i++){
-                            editor.putString(p.getAuthinfo().get(i).getKey(), p.getAuthinfo().get(i).getPrimeNum());
+                        else if(p.getCmd() == MESSAGE_DATA_SAVE){
+                            SharedPreferences.Editor editor = pref.edit();
+                            for(int i=0; i<p.getAuthinfo().size(); i++){
+                                editor.putString(p.getAuthinfo().get(i).getKey(), p.getAuthinfo().get(i).getPrimeNum());
+                            }
+                            editor.commit();
+                            Packet pa = new Packet();
+                            pa.setCmd(MESSAGE_DATA_SAVE_ACK);
+                            sendMsg(gson.toJson(pa));
                         }
-                        editor.commit();
-                        Packet pa = new Packet();
-                        pa.setCmd(MESSAGE_DATA_SAVE_ACK);
-                        sendMsg(gson.toJson(pa));
+                        else if(p.getCmd() == MESSAGE_DATA_SAVE_ACK){
+                            Log.d("1", "msg data save ack");
+                        }
+                        else if(p.getCmd() == MESSAGE_DATA_LOAD_ACK){
+                            Log.d("1", "msg data load ack");
+                        }
                     }
-                    else if(p.getCmd() == MESSAGE_DATA_SAVE_ACK){
-                        Log.d("1", "msg data save ack");
+                    catch(Exception e){
+                        e.printStackTrace();
                     }
-                    else if(p.getCmd() == MESSAGE_DATA_LOAD_ACK){
-                        Log.d("1", "msg data load ack");
-                    }
+                    Toast.makeText(getApplicationContext(), readMessage, Toast.LENGTH_SHORT).show();
                     mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
                     break;
                 case MESSAGE_DEVICE_NAME:

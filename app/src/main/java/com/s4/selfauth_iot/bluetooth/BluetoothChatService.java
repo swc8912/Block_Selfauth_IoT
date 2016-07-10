@@ -459,8 +459,6 @@ public class BluetoothChatService {
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     connectionLost();
-                    // Start the service over to restart listening mode
-                    BluetoothChatService.this.start();
                     break;
                 }
             }
